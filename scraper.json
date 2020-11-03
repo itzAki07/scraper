@@ -90,7 +90,7 @@
     },
     "yts": {
         "name": "YTS",
-        "enabled": true,
+        "enabled": false,
         "languages": [
             "en"
         ],
@@ -112,7 +112,7 @@
             "title": "title_long",
             "seeds": "seeds",
             "peers": "peers",
-            "size": "size_bytes",
+            "size": "size",
             "quality": "quality",
             "hash": "hash"
         },
@@ -295,6 +295,54 @@
             "seeds": "row.querySelector('table tbody tr .torrents_small_seeders_data1').textContent",
             "size": "row.querySelector('table tbody tr .torrents_small_size_data1').textContent",
             "url": "row.querySelector('table tbody tr .torrents_small_info_data2 a:nth-child(2)').getAttribute('href')"
+        },
+        "title_replacement": {
+            ".": "",
+            ":": "",
+            "'": "",
+            "&": ""
+        }
+    },
+    "torrentdownloads": {
+        "name": "torrentdownloads",
+        "enabled": true,
+        "languages": [
+            "en"
+        ],
+        "base_url": "https://www.torrentdownloads.me",
+        "fallback_urls": [
+            "https://www.torrentdownloads.info",
+            "http://torrentdownloads.d4.re"
+        ],
+        "response_type": "text",
+        "separator": "+",
+        "source_is_in_sub_page": true,
+        "movie": {
+            "query": "/search/?search={query}",
+            "keywords": "{title} {year}"
+        },
+        "episode": {
+            "query": "/search/?search={query}",
+            "keywords": "{title} {episodeCode}"
+        },
+        "season": {
+            "query": "/search/?search={query}",
+            "keywords": [
+                "{title} {seasonCode}",
+                "{title} season"
+            ]
+        },
+        "anime": {
+            "query": "/search/?search={query}",
+            "keywords": "{title} {absoluteNumber}"
+        },
+        "html_parser": {
+            "row": "doc.querySelectorAll('.inner_container')[1].querySelectorAll('.grey_bar3')",
+            "title": "row.querySelector('p a').textContent",
+            "peers": "row.querySelector('span:nth-child(3)').textContent",
+            "seeds": "row.querySelector('span:nth-child(4)').textContent",
+            "size": "row.querySelector('span:nth-child(5)').textContent",
+            "url": "row.querySelector('p a').getAttribute('href').match('http') || row.querySelector('p a').getAttribute('href').match('php') ? null : row.querySelector('p a').getAttribute('href')"
         },
         "title_replacement": {
             ".": "",
@@ -628,6 +676,7 @@
         ],
         "base_url": "https://solidtorrents.net/api/v1/search?q={query}&category=video&sort=seeders",
         "response_type": "json",
+        "separator": "%20",
         "movie": {
             "query": "",
             "keywords": "{title} {year}"
@@ -653,7 +702,8 @@
             "title": "title",
             "seeds": "swarm.seeders",
             "peers": "swarm.leechers",
-            "size": "size"
+            "size": "size",
+            "hash": "info_hash"
         },
         "title_replacement": {
             ".": "",
@@ -1032,7 +1082,7 @@
             "keywords": "{title} {year}"
         },
         "episode": {
-            "query": "  ",
+            "query": "/search?q={query}",
             "keywords": "{title} {episodeCode}"
         },
         "season": {
@@ -1053,6 +1103,153 @@
             "peers": "row.querySelector('td:nth-child(5)').textContent",
             "seeds": "row.querySelector('td:nth-child(4)').textContent",
             "size": "row.querySelector('td:nth-child(2)').textContent",
+            "url": "row.querySelector('td:nth-child(6) a').getAttribute('href')"
+        },
+        "source_is_in_sub_page": false,
+        "title_replacement": {
+            "'s": "s",
+            "\"": ""
+        }
+    },
+    "AnimeTosho": {
+        "name": "AnimeTosho",
+        "enabled": true,
+        "languages": [
+            "en"
+        ],
+        "base_url": "https://animetosho.org",
+        "fallback_urls": [],
+        "response_type": "text",
+        "movie": {
+            "query": "/search?q={query}",
+            "keywords": "{title} {year}"
+        },
+        "episode": {
+            "query": "/search?q={query}",
+            "keywords": [
+                "{title} {absoluteNumber}",
+                "{title} {episode}"
+            ]
+        },
+        "season": {
+            "query": "/search?q={query}",
+            "keywords": [
+                "{title} {seasonCode}",
+                "{title} season"
+            ]
+        },
+        "anime": {
+            "query": "/search?q={query}",
+            "keywords": [
+                "{title} {absoluteNumber}",
+                "{title} {episode}"
+            ]
+        },
+        "separator": "+",
+        "html_parser": {
+            "row": "doc.querySelectorAll('.home_list_entry')",
+            "title": "row.querySelector('.link a').textContent",
+            "peers": "row.querySelector('span:nth-child(5)').textContent.match(/\d+/g)[1]",
+            "seeds": "row.querySelector('span:nth-child(5)').textContent.match(/\d+/g)[0]",
+            "size": "row.querySelector('.size').textContent",
+            "url": "row.querySelector('.links a:nth-child(4)').getAttribute('href')"
+        },
+        "source_is_in_sub_page": false,
+        "title_replacement": {
+            "'s": "s",
+            "\"": ""
+        }
+    },
+    "Torlock": {
+        "name": "TorLock",
+        "enabled": false,
+        "languages": [
+            "en"
+        ],
+        "base_url": "https://www.torlock.com",
+        "fallback_urls": [],
+        "response_type": "text",
+        "movie": {
+            "query": "/movie/torrents/{query}.html?",
+            "keywords": "{title} {year}"
+        },
+        "episode": {
+            "query": "/television/torrents/{query}.html?",
+            "keywords": [
+                "{title} {absoluteNumber}",
+                "{title} {episode}"
+            ]
+        },
+        "season": {
+            "query": "/television/torrents/{query}.html?",
+            "keywords": [
+                "{title} {seasonCode}",
+                "{title} season"
+            ]
+        },
+        "anime": {
+            "query": "/anime/torrents/{query}.html?",
+            "keywords": [
+                "{title} {absoluteNumber}",
+                "{title} {episode}"
+            ]
+        },
+        "separator": "-",
+        "html_parser": {
+            "row": "doc.querySelectorAll('tbody tr')",
+            "title": "row.querySelector('td:nth-child(1) a b').textContent",
+            "peers": "row.querySelector('.tdl').textContent",
+            "seeds": "row.querySelector('.tul').textContent",
+            "size": "row.querySelector('.ts').textContent",
+            "url": "row.querySelector('td:nth-child(1) a').getAttribute('href')"
+        },
+        "source_is_in_sub_page": false,
+        "title_replacement": {
+            "'s": "s",
+            "\"": ""
+        }
+    },
+    "AniDex": {
+        "name": "AniDex",
+        "enabled": false,
+        "languages": [
+            "en"
+        ],
+        "base_url": "https://anidex.info",
+        "fallback_urls": [],
+        "response_type": "text",
+        "movie": {
+            "query": "/?q={query}",
+            "keywords": "{title} {year}"
+        },
+        "episode": {
+            "query": "/?q={query}",
+            "keywords": [
+                "{title} {absoluteNumber}",
+                "{title} {episode}"
+            ]
+        },
+        "season": {
+            "query": "/?q={query}",
+            "keywords": [
+                "{title} {seasonCode}",
+                "{title} season"
+            ]
+        },
+        "anime": {
+            "query": "/?q={query}",
+            "keywords": [
+                "{title} {absoluteNumber}",
+                "{title} {episode}"
+            ]
+        },
+        "separator": "+",
+        "html_parser": {
+            "row": "doc.querySelectorAll('tbody tr')",
+            "title": "row.querySelector('td:nth-child(3) a').textContent",
+            "peers": "row.querySelector('span:nth-child(10)').textContent",
+            "seeds": "row.querySelector('td:nth-child(9)').textContent",
+            "size": "row.querySelector('td:nth-child(7)').textContent",
             "url": "row.querySelector('td:nth-child(6) a').getAttribute('href')"
         },
         "source_is_in_sub_page": false,
