@@ -1,4 +1,11 @@
 {
+  "_manifest" : {
+    "name": "Syncler USDG Express",
+    "id": "syncler.usdg.express",
+    "version": 1.3.5,
+    "classPath": "",
+    "permaUrl": "https://raw.githubusercontent.com/itzAki07/scraper/main/scraper.json"
+  },
     "torrentapi": {
         "name": "RARBG",
         "enabled": true,
